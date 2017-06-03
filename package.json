@@ -1,0 +1,22 @@
+{
+  "name": "named-ranges",
+  "version": "0.1.0",
+  "description": "Named Ranges",
+  "main": "named-ranges.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SETTER2000/named-ranges.git"
+  },
+  "keywords": [
+    "ranges"
+  ],
+  "author": "SETTER <info@appalachi.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SETTER2000/named-ranges/issues"
+  },
+  "homepage": "https://github.com/SETTER2000/named-ranges#readme"
+}
