@@ -1,6 +1,6 @@
 {
   "name": "named-ranges",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Named Ranges",
   "main": "named-ranges.js",
   "scripts": {
