@@ -20,6 +20,7 @@ function Ranges(workbook, name, range, style) {
     this.range = range;
     this.nameTwoColumn = 'C';
     this.pattern = /^\d+$/gi;
+    this.replace = '';
     this.style = style;
     this.error = {};
     this.currentError = 0;
@@ -310,9 +311,9 @@ Ranges.prototype.validationUndefinedColumn = function () {
  * @returns {number}
  */
 Ranges.prototype.validationReplaceStringColumn = function (pattern, replace) {
-
+    if (replace) {this.replace = replace;}
     // Заменяем паттер, который был по умолчанию в классе
-    if (pattern) this.pattern = pattern;
+    if (pattern) {this.pattern = pattern;}
 
     // Проходим по всем ячейкам диапазона текужего объекта
     this.workbook.sheet(0).range(this.range).forEach(range => {
@@ -324,7 +325,8 @@ Ranges.prototype.validationReplaceStringColumn = function (pattern, replace) {
         let valueCell = `${range.value()}`;
 
         if (valueCell.match(pattern)) {
-            this.workbook.sheet(0).cell(currentCell).value(replace);
+            this.workbook.sheet(0).cell(currentCell).value(valueCell.replace(pattern, this.replace));
+            // this.workbook.sheet(0).cell(currentCell).value(replace);
         }
         // Проверяем, если данные не прошли валидацию,
         // то красим ячейку красным цветом

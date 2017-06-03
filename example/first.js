@@ -217,9 +217,12 @@ XlsxPopulate.fromFileAsync(pathToXlsxFile)
              * VALIDATION
              */
             dateReport.validationColumn(/^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])|undefined/gi);
+            fio.validationReplaceStringColumn(/([а-яё]+)\s(\(.*\))\s([а-яё]+)\s([а-яё]+)/gi, '$1 $3 $4');
             fio.validationColumn(/^([а-яё]+)\s([а-яё]+)\s([а-яё]+)|undefined/gi);
-            coming.validationReplaceStringColumn(/(\(нет\))/gi, +0);
-            exit.validationReplaceStringColumn(/(\(нет\))/gi, +0);
+            coming.validationReplaceStringColumn(/((\d\d:\d\d) \(.*\))/gi, '$2');
+            coming.validationReplaceStringColumn(/(\(нет\))/gi, 'undefined');
+            exit.validationReplaceStringColumn(/((\d\d:\d\d) \(.*\))/gi, '$2');
+            exit.validationReplaceStringColumn(/(\(нет\))/gi, 'undefined');
 
 
             /**
