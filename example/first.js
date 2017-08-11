@@ -13,7 +13,7 @@ const Ranges = require('../named-ranges');
 const DateRu = require('date-ru');
 
 
-const pathToXlsxFile = 'Report 2017-05-31.xlsx';
+const pathToXlsxFile = 'Report_2017-05-31.xls';
 var date = new Date();
 var tpl = '%d.%m.%y %H:%M:%S';
 var tpl2 = '%d.%m.%y_%H-%M-%S';
@@ -219,11 +219,12 @@ XlsxPopulate.fromFileAsync(pathToXlsxFile)
             dateReport.validationColumn(/^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])|undefined/gi);
             fio.validationReplaceStringColumn(/([а-яё]+)\s(\(.*\))\s([а-яё]+)\s([а-яё]+)/gi, '$1 $3 $4');
             fio.validationColumn(/^([а-яё]+)\s([а-яё]+)\s([а-яё]+)|undefined/gi);
-            coming.validationReplaceStringColumn(/((\d\d:\d\d) \(.*\))/gi, '$2');
-            coming.validationReplaceStringColumn(/(\(нет\))/gi, 'undefined');
-            exit.validationReplaceStringColumn(/((\d\d:\d\d) \(.*\))/gi, '$2');
-            exit.validationReplaceStringColumn(/(\(нет\))/gi, 'undefined');
 
+            coming.validationReplaceStringColumn(/(\([а-яё]+\))/gi, '00:00');
+            coming.validationReplaceStringColumn(/(\d\d:\d\d)\s\(\d+\)/gi, '$1');
+            exit.validationReplaceStringColumn(/(\([а-яё]+\))/gi, '00:00');
+            exit.validationReplaceStringColumn(/(\d\d:\d\d)\s\(\d+\)/gi, '$1');
+            
 
             /**
              * Применить стили для диапазона
