@@ -311,9 +311,13 @@ Ranges.prototype.validationUndefinedColumn = function () {
  * @returns {number}
  */
 Ranges.prototype.validationReplaceStringColumn = function (pattern, replace) {
-    if (replace) {this.replace = replace;}
+    if (replace) {
+        this.replace = replace;
+    }
     // Заменяем паттер, который был по умолчанию в классе
-    if (pattern) {this.pattern = pattern;}
+    if (pattern) {
+        this.pattern = pattern;
+    }
 
     // Проходим по всем ячейкам диапазона текужего объекта
     this.workbook.sheet(0).range(this.range).forEach(range => {
@@ -326,6 +330,86 @@ Ranges.prototype.validationReplaceStringColumn = function (pattern, replace) {
 
         if (valueCell.match(pattern)) {
             this.workbook.sheet(0).cell(currentCell).value(valueCell.replace(pattern, this.replace));
+            // this.workbook.sheet(0).cell(currentCell).value(replace);
+        }
+        // Проверяем, если данные не прошли валидацию,
+        // то красим ячейку красным цветом
+        //if (valueCell.match(this.pattern) == undefined) {
+        //    err=1;
+        //    //*********** !!! НЕ УДАЛЯТЬ! ***********************//
+        //    //sails.log('rowNumber');
+        //    //sails.log(range.rowNumber());
+        //    //sails.log('row');
+        //    //sails.log(range.row().cell(4).value());
+        //    //sails.log('columnName');
+        //    //sails.log(range.columnName() + '' + range.rowNumber());
+        //    //sails.log('sheet');
+        //    //sails.log(range.sheet().value());
+        //    this.workbook.sheet(0).cell(currentCell).style("fill", this.colorErrorCell);
+        //}
+    });
+};
+
+
+Ranges.prototype.validationReplaceNullTimeExit = function (pattern, replace) {
+    if (replace) {
+        this.replace = replace;
+    }
+    // Заменяем паттер, который был по умолчанию в классе
+    if (pattern) {
+        this.pattern = pattern;
+    }
+
+    // Проходим по всем ячейкам диапазона текужего объекта
+    this.workbook.sheet(0).range(this.range).forEach(range => {
+
+        // Координаты текущей ячейки. Например A3 или J55
+        let currentCell = range.columnName() + '' + range.rowNumber();
+        let coming = 'E' + range.rowNumber();
+        // Данные ячейки
+        let valueCell = `${range.value()}`;
+
+        if (valueCell.match(pattern)) {
+            this.workbook.sheet(0).cell(currentCell).value(valueCell.replace(pattern,this.workbook.sheet(0).cell(coming).value() ));
+            // this.workbook.sheet(0).cell(currentCell).value(replace);
+        }
+        // Проверяем, если данные не прошли валидацию,
+        // то красим ячейку красным цветом
+        //if (valueCell.match(this.pattern) == undefined) {
+        //    err=1;
+        //    //*********** !!! НЕ УДАЛЯТЬ! ***********************//
+        //    //sails.log('rowNumber');
+        //    //sails.log(range.rowNumber());
+        //    //sails.log('row');
+        //    //sails.log(range.row().cell(4).value());
+        //    //sails.log('columnName');
+        //    //sails.log(range.columnName() + '' + range.rowNumber());
+        //    //sails.log('sheet');
+        //    //sails.log(range.sheet().value());
+        //    this.workbook.sheet(0).cell(currentCell).style("fill", this.colorErrorCell);
+        //}
+    });
+};
+Ranges.prototype.validationReplaceNullTimeComing = function (pattern, replace) {
+    if (replace) {
+        this.replace = replace;
+    }
+    // Заменяем паттер, который был по умолчанию в классе
+    if (pattern) {
+        this.pattern = pattern;
+    }
+
+    // Проходим по всем ячейкам диапазона текужего объекта
+    this.workbook.sheet(0).range(this.range).forEach(range => {
+
+        // Координаты текущей ячейки. Например A3 или J55
+        let currentCell = range.columnName() + '' + range.rowNumber();
+        let exit = 'F' + range.rowNumber();
+        // Данные ячейки
+        let valueCell = `${range.value()}`;
+
+        if (valueCell.match(pattern)) {
+            this.workbook.sheet(0).cell(currentCell).value(valueCell.replace(pattern,this.workbook.sheet(0).cell(exit).value() ));
             // this.workbook.sheet(0).cell(currentCell).value(replace);
         }
         // Проверяем, если данные не прошли валидацию,
